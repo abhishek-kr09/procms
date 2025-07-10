@@ -1,41 +1,52 @@
 import dateFormat from "@/utils/dateFormat";
 import { Calendar } from "lucide-react";
 import Image from "next/image";
+import "@/styles/blog.css"
 
+const fetchSingleBlog = async(slug)=> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/get/${slug}`)
+    const data = await res.json();
+    console.log(data, 'single blog')
+    return data;
+}
 
-export default function SingleBlog(){
-    const tempTags= "SpaceX,Nasa,Exploration"
+export async function generateMetadata({ params }){
+    const res = await fetchSingleBlog(params.slug);
 
-    const tempHtml=`
-        <p>Demo content</p>
-        <h2>Test h2</h2>
-    `
+    return {
+        title: res.title,
+        description: res.excerpt,
+        openGraph: {
+            images: [`${process.env.NEXT_PUBLIC_BASE_URL}/api/og?title=${res.title}`]
+        }
+    }
+}
+
+export default async function SingleBlog({params}){
+    const { slug } = params;
+    const post = await fetchSingleBlog(slug);
+
     return (
         <section>
             <div className="flex flex-col gap-4 items-center">
-                <Image className="rounded border w-[90%] md:w-[700px]" src="/thumbnails/dreams.png" width={500} height={250} alt="Page title"/>
+                {post.thumbnail && <Image className="rounded border w-[90%] md:w-[700px]" src={post.thumbnail} width={500} height={250} alt={post.title}/>}
+                <h1 className="text-2xl md:text-4xl font-bold">{post.title}</h1>
                 <div className="meta-of-a-blog space-y-2">
                     <div className="flex gap-2 items-center">
                     <Calendar className="text-gray-400 size-4"/>
-                    Created On <p className="text-gary-400 text-xs" >{dateFormat(new Date())}</p>
+                   <p className="text-gray-400 text-xs">Created on: {dateFormat(post.createdAt)}</p>
                     </div>
                     <div className="text-xs flex items-center gap-2">
                         <p>Categories:</p>
-                        <p className="badge bg-gray-600/30 border border-gray-700 px-2 py-1 rounded">Space Exploration</p>
+                        <p className="badge bg-gray-600/30 border border-gray-700 w-fit px-2 py-1 rounded">{post.catSlug}</p>
                     </div>
-                    <div className="text-xs flex items-center gap-2">
+                     {post?.keywords && <div className="text-xs flex items-center gap-2">
                         <p>Tags:</p>
-                        {tempTags.split(",").map(tag=><p className="badge bg-gray-600/30 border border-gray-700 px-[4px] py-[2px] rounded">{tag}</p>)}
-                    </div>
+                        {post?.keywords.split(",").map((tag, index)=> <p key={`${tag}_${index}`} className="badge bg-gray-600/30 border border-gray-700 w-fit px-[4px] py-[2px] rounded">{tag}</p>)}
+                    </div>}
                 </div>
-                {/* <div className="content" dangerouslySetInnerHTML={{__html: tempHtml}}>
-                    </div> */}
-                    <p className="text-sm w-[90%] md:w-2/3 text-gray-300">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
-                        <br></br> Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. 
-                        <br></br>Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. 
-                        <br></br>Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc.
-                    </p>
+                 <div className="blogContent text-sm w-[90%] md:w-2/3 text-gray-300" dangerouslySetInnerHTML={{__html: post.content}}>
+                </div>
             </div>
         </section>
     )

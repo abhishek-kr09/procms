@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
-
-
 
 @layer base {
   :root {
@@ -82,8 +84,6 @@
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
@@ -91,4 +91,26 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.ql-snow{
+  border: transparent !important;
+}
+.ql-editor{
+  min-height: 200px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: rgb(39 39 42);
+}
+.ql-editor > p{
+  font-size: 1rem;
+}
+.ql-syntax{
+  background-color: rgb(83, 83, 83);
+  font-family: monospace;
+}
+
+.ql-toolbar{
+  background-color: gray;
+  border-radius: 4px;
 }
