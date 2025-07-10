@@ -8,9 +8,22 @@ import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
 
 export default function Editor({onSave,initialData}) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit,setValue } = useForm();
   const [content, setContent] = useState("");
   const [ogImage, setOgImage] = useState("");
+
+  useEffect(()=> {
+    if(initialData){
+      setValue('title', initialData.title);
+      setContent(initialData.content);
+      setOgImage(initialData.thumbnail)
+      setValue('keywords', initialData.keywords || "");
+      setValue('category', initialData.catSlug || "");
+      setValue('excerpt', initialData.excerpt || "");
+      setValue('metaDescription', initialData.desc || "");
+      setValue('status', initialData.status);
+    }
+  }, [initialData])
 
   const handleForm = (data) => {
     console.log(data);
@@ -66,7 +79,7 @@ export default function Editor({onSave,initialData}) {
           type="text"
         />
         <h2 className="text-xl font-bold"> SEO Data</h2>
-        <ImageUpload returnImage={setOgImage} />
+        <ImageUpload returnImage={setOgImage} preloadedImage={ogImage} />
         <input
           {...register("keywords")}
           placeholder="Enter Keywords"
