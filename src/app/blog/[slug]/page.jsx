@@ -3,6 +3,7 @@ import { Calendar } from "lucide-react";
 import Image from "next/image";
 import "@/styles/blog.css";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const fetchSingleBlog = async (slug) => {
   const res = await fetch(
