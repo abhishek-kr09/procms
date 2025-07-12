@@ -13,7 +13,7 @@ const fetchSingleBlog = async (slug) => {
     notFound();
   }
   const data = await res.json();
-  console.log(data, "single blog");
+  // console.log(data, "single blog");
   return data;
 };
 
