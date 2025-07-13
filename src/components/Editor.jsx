@@ -232,7 +232,7 @@ export default function Editor({ onSave, initialData }) {
           className="font-bold text-xl bg-zinc-600 px-3 py-2 rounded-sm outline-none w-full"
           type="text"
         />
-        <h2 className="text-xl font-bold"> SEO Data</h2>
+        {/* <h2 className="text-xl font-bold"> SEO Data</h2> */}
         <ImageUpload returnImage={setOgImage} preloadedImage={ogImage} />
         <input
           {...register("keywords")}

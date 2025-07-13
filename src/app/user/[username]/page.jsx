@@ -34,7 +34,15 @@ const UserPosts = ({posts}) => {
         : (
             posts.map((post, index)=> {
             return <Link className="flex items-center gap-5 bg-zinc-800/40 hover:bg-zinc-800/20 transition-all duration-200 hover:scale-[1.03] rounded px-2 py-2 w-full mx-auto" href={`/blog/${post.slug}`}>
-                <Image className="w-36 h-20" src={post.thumbnail} width={100} height={60} />
+                {post.thumbnail && (
+  <Image
+    className="w-36 h-20"
+    src={post.thumbnail}
+    width={100}
+    height={60}
+    alt={post.title}
+  />
+)}
                 <div>
                     <h3 className="text-gray-200 font-bold text-lg">{post.title}</h3>
                     <p className="text-gray-400">{post.excerpt.substring(0, 30)}...</p>

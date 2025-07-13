@@ -46,7 +46,7 @@ export default function ImageUpload({returnImage, preloadedImage}){
 
     return <div className="py-2 flex flex-col gap-5 w-full">
         <label className="w-fit">
-                <span className="bg-gray-500/10 border-2 border-gray-500 border-dashed p-3 rounded w-[300px]">Update Cover image</span>
+                <span className="bg-gray-500/10 border-2 border-gray-500 border-dashed p-3 rounded w-[300px]">Upload Cover image</span>
                 <input type="file" onChange={handleImageAsFile} hidden />
         </label>
         <div>
