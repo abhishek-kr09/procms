@@ -9,7 +9,7 @@ const font = fetch(new URL('./lato.ttf', import.meta.url)).then(res => res.array
 export async function GET(request){
     try {
         const { searchParams } = new URL(request.url);
-        const title = (searchParams.get('title').charAt(0).toUpperCase() + searchParams.get("title").slice(1)) || "GeekCMS";
+        const title = (searchParams.get('title').charAt(0).toUpperCase() + searchParams.get("title").slice(1)) || "ProCMS";
 
         return new ImageResponse(
             (

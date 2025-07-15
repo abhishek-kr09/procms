@@ -22,7 +22,7 @@ export default async function Navbar() {
   return (
     <div className="w-full flex justify-between items-center px-8 h-12">
       <Link href="/" className="flex gap-2">
-        <Album /> <span className="font-extrabold">GeekCMS</span>
+        <Album /> <span className="font-extrabold">ProCMS</span>
       </Link>
       {session ? (
         <UserModalComponent user={session?.user}/>
