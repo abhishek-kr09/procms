@@ -1,6 +1,5 @@
 import { Icons } from "@/components/Icons";
 import { useToast } from "@/hooks/use-toast";
-import { A } from "@upstash/redis/zmscore-BshEAkn7";
 import { Album } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
